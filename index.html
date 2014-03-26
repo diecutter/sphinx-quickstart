@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Sphinx documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+<!-- Page content. -->
+<ul class="breadcrumb">
+    <li><a href="https://diecutter.io">diecutter, templates as a service</a> <span class="divider">/</span></li>
+    <li><a href="https://github.com/diecutter/sphinx-quickstart/">Sphinx quickstart</a> <span class="divider">/</span></li>
+    <li><a href="./index.html">Online generator</a> <span class="divider">/</span></li>
+</ul> 
+<h1>Generate Sphinx documentation</h1>
+<p>
+    If you want to reproduce this demo with another HTTP client, like curl or
+    wget, learn about
+    <a href="https://diecutter.readthedocs.org/en/latest/client/index.html">diecutter's API usage</a>.
+</p>
+<div class="section">
+    <h2>Configure diecutter service</h2>
+    <form id="diecutter_form" class="form-horizontal">
+        <p>
+            First, tell the client about the diecutter service to use.
+            Keep default values to use this diecutter online demo.
+        </p>
+        <div class="control-group">
+            <label for="diecutter_resource" class="control-label">Service</label>
+            <div class="controls">
+                <input id="diecutter_service" name="service" type="text" placeholder="http://" value="https://diecutter.io/github" />
+                <span class="help-inline">
+                    URL to diecutter's API, without trailing slash.
+                    Examples: "http://localhost:8106", "http://diecutter.io/api".
+                </span>
+                <p>
+                    <span id="diecutter_service_status" class="badge"><i class="icon-question-sign icon-white"></i></span>
+                    <button id="diecutter_service_test"><span class="icon-refresh"></span> Test</button>
+                    <img class="loading" style="display:none;" src="//diecutter.io/static/img/loader.gif" />
+                </p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="diecutter_resource" class="control-label">Resource</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on" id="diecutter_prefix"></span>
+                    <input id="diecutter_resource" name="resource" type="text" value="/diecutter/sphinx-quickstart/master/template/docs" />
+                </div>
+                <span class="help-inline">
+                    Path to resource relative to diecutter's service URL + "/".
+                    Notice that the optional trailing slash have effect on the output.
+                    Examples: "/template/", "/template/docs/index.txt".
+                </span>
+                <p>
+                    <button id="diecutter_resource_get"><span class="icon-circle-arrow-down"></span> GET resource info</button>
+                </p>
+            </div>
+        </div>
+    </form>
+    <form id="get_resource_form" method="GET" action=""></form>
+</div>
+<div class="section">
+    <h2>Configure Sphinx documentation</h2>
+    <form id="sphinx_form" action="" method="POST" class="form-horizontal">
+        <p>Fill in the form then submit it to generate files.</p>
+        <fieldset>
+            <legend>Project</legend>
+            <div class="control-group">
+                <label for="sphinx_project_name" class="control-label">Project name</label>
+                <div class="controls">
+                    <input id="sphinx_project_name" name="project_name" type="text" value="" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_author" class="control-label">Author</label>
+                <div class="controls">
+                    <input id="sphinx_author" name="author" type="text" value="" placeholder="Author" />
+                    <span class="help-inline">Copyright holder.</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_copyright_string" class="control-label">Copyright</label>
+                <div class="controls">
+                    <input id="sphinx_copyright" name="copyright" type="text" value="" placeholder="YYYY-YYYY, Author" />
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Meta information files</legend>
+            <p>Paths to standard project information files, relative to the root of the project's documentation.</p>
+            <div class="control-group">
+                <label for="sphinx_readme_file" class="control-label">Path to README</label>
+                <div class="controls">
+                    <input id="sphinx_readme_file" name="readme_file" type="text" value="../README" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_license_file" class="control-label">Path to LICENSE</label>
+                <div class="controls">
+                    <input id="sphinx_license_file" name="license_file" type="text" value="../LICENSE" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_authors_file" class="control-label">Path to AUTHORS</label>
+                <div class="controls">
+                    <input id="sphinx_authors_file" name="authors_file" type="text" value="../AUTHORS" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_changelog_file" class="control-label">Path to CHANGELOG</label>
+                <div class="controls">
+                    <input id="sphinx_changelog_file" name="changelog_file" type="text" value="../CHANGELOG" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_install_file" class="control-label">Path to INSTALL</label>
+                <div class="controls">
+                    <input id="sphinx_install_file" name="install_file" type="text" value="../INSTALL" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_version_file" class="control-label">Path to VERSION</label>
+                <div class="controls">
+                    <input id="sphinx_version_file" name="version_file" type="text" value="../VERSION" />
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Demo</legend>
+            <p>
+                Do you provide a demonstration as part of development sources?
+            </p>
+            <div class="control-group">
+                <label for="sphinx_with_demo" class="control-label">With demo?</label>
+                <div class="controls">
+                    <input id="sphinx_with_demo" name="with_demo" type="checkbox" value="1" checked />
+                    <span class="help-inline">Options below will have no effect if you uncheck this.</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_demo_readme" class="control-label">Path to demo's README</label>
+                <div class="controls">
+                    <input id="sphinx_demo_readme" name="demo_readme" type="text" value="../demo/README" />
+                    <span class="help-inline">Path to demo's README file, relative to the root of project's documentation.</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>API documentation</legend>
+            <p>
+                Do you want to include auto-generated API documentation?
+            </p>
+            <div class="control-group">
+                <label for="sphinx_with_api" class="control-label">With API documentation?</label>
+                <div class="controls">
+                    <input id="sphinx_with_api" name="with_api" type="checkbox" value="1" checked />
+                    <span class="help-inline">Options below will have no effect if you uncheck this.</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_api_package" class="control-label">Package name</label>
+                <div class="controls">
+                    <input id="sphinx_api_package" name="api_package" type="text" value="" />
+                    <span class="help-inline">Python package name, i.e. the one used in ``import`` statements.</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Build options</legend>
+            <p>The following options have effect on the generated "Makefile" or "make.bat" files.</p>
+            <div class="control-group">
+                <label for="sphinx_sphinx_build" class="control-label">Build command</label>
+                <div class="controls">
+                    <input id="sphinx_sphinx_build" name="sphinx_build" type="text" value="sphinx-build" />
+                    <span class="help-inline">Build command, particularly useful if "sphinx-build" is not in path.</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="sphinx_sphinx_build_dir" class="control-label">Build directory</label>
+                <div class="controls">
+                    <input id="sphinx_sphinx_build_dir" name="sphinx_build_dir" type="text" value="_build" />
+                    <span class="help-inline">Output directory for Sphinx builds, relative to the root of project's documentation.</span>
+                </div>
+            </div>
+        </fieldset>
+        <div>
+            <a id="sphinx_submit" class="btn btn-primary btn-large">
+                <span class="icon-circle-arrow-down"> </span>            
+                POST data to generate files
+            </a>
+        </div>
+    </form>
+</div>
+<!-- End page content. -->
+            </div>
+        </div>
+    </div>
+    <!-- Scripts. -->
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script>
+(function ( $ ) {
+    var diecutter_form = null;
+    var data_form_prefix = 'sphinx_';
+    var data_form = null;
+
+    /* Return URL for resource.
+     *
+     * Path is built with the following values:
+     *
+     * - value of the input with id="diecutter_service"
+     * - value of the span with id="diecutter_prefix"
+     * - value of the input with id="diecutter_resource"
+     *
+     */
+    function diecutter_url( path ) {
+        if( path === undefined ) {
+            path = $('#diecutter_resource').val();
+            if( path !== '' && path[0] != '/') {
+                path = '/' + path;
+                $('#diecutter_resource').val(path);
+            }
+            path = $('#diecutter_prefix').html() + path;
+        }
+        service = $('#diecutter_service').val();
+        url = service + path;
+        return url;
+    }
+
+    /* Set client form's "action" attribute to event's subject value. */
+    function update_form_action( event ) {
+        url = diecutter_url();
+        data_form.attr('action', url);
+    }
+
+    /* GET to diecutter service root. */
+    function get_diecutter_service_status( event ) {
+        // Disable button.
+        $( '#diecutter_service_test' ).attr('disabled', 'disabled');
+        // Display processing message in place of status.
+        $( '#diecutter_service_status' ).siblings('.loading').show();
+        // AJAX call.
+        url = diecutter_url( '/' );
+        $.ajax( url, {
+            type: 'GET',
+            dataType: 'json',
+            crossDomain: true,
+            processData: false,
+            error: function ( jqXHR, textStatus, errorThrown ) {
+                $( '#diecutter_service_status' )
+                    .removeClass( 'badge-success' )
+                    .addClass( 'badge-important' );
+                $( '#diecutter_service_status > i' )
+                    .removeClass( 'icon-question-sign' )
+                    .removeClass( 'icon-ok-circle' )
+                    .addClass( 'icon-warning-sign' );
+            },
+            success: function ( data, textStatus, jqXHR ) {
+                $( '#diecutter_service_status' )
+                    .removeClass( 'badge-important' )
+                    .addClass( 'badge-success' );
+                $( '#diecutter_service_status > i' )
+                    .removeClass( 'icon-question-sign' )
+                    .removeClass( 'icon-warning-sign' )
+                    .addClass( 'icon-ok-circle' );
+            },
+            complete: function ( jqXHR, textStatus ) {
+                $( '#diecutter_service_status' ).siblings('.loading').hide();
+                $( '#diecutter_service_test' ).removeAttr('disabled');
+            }
+        });
+        return false;
+    }
+
+    /* GET diecutter resource. */
+    function get_diecutter_resource( event ) {
+        $( '#get_resource_form' ).attr( 'action', diecutter_url() );
+        $( '#get_resource_form' ).submit();
+        return false;
+    }
+
+    /* POST to diecutter resource. */
+    function post_diecutter( event ) {
+        data_form.submit();
+    }
+
+    $(document).ready(function() {
+        diecutter_form = $('#diecutter_form');
+        data_form = $('#' + data_form_prefix + 'form');
+
+        update_form_action();
+        get_diecutter_service_status();
+
+        // Event listeners.
+        $( '#diecutter_service' )
+            .on( 'change', get_diecutter_service_status );
+        $( '#diecutter_service_test' )
+            .on( 'click', get_diecutter_service_status );
+        $( '#diecutter_resource_get' )
+            .on( 'click', get_diecutter_resource );
+        $( '#diecutter_service' ).on( 'change', update_form_action );
+        $( '#diecutter_resource' ).on( 'change', update_form_action );
+        $( '#sphinx_submit' ).on( 'click', post_diecutter );
+    });
+})( jQuery );
+    </script>
+</body>
+</html>
