@@ -2,6 +2,8 @@
 About {{ project_name }}
 {% for i in range(0, project_name|count + "About "|count) %}#{% endfor %}
 
+This section is about the `{{ project_name }}` project itself.
+
 .. toctree::
 
    vision
