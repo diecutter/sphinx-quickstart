@@ -1,3 +1,1 @@
-#################
-Contributor guide
-#################
+.. include:: {{ path_normalize(contributing_file) }}

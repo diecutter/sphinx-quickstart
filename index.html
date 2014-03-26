@@ -11,7 +11,7 @@
             <div class="span12">
 <!-- Page content. -->
 <ul class="breadcrumb">
-    <li><a href="https://diecutter.io">diecutter, templates as a service</a> <span class="divider">/</span></li>
+    <li><a href="https://diecutter.alwaysdata.net">diecutter, templates as a service</a> <span class="divider">/</span></li>
     <li><a href="https://github.com/diecutter/sphinx-quickstart/">Sphinx quickstart</a> <span class="divider">/</span></li>
     <li><a href="./index.html">Online generator</a> <span class="divider">/</span></li>
 </ul> 
@@ -31,7 +31,7 @@
         <div class="control-group">
             <label for="diecutter_resource" class="control-label">Service</label>
             <div class="controls">
-                <input id="diecutter_service" name="service" type="text" placeholder="http://" value="https://diecutter.io/github" />
+                <input id="diecutter_service" name="service" type="text" placeholder="http://" value="https://diecutter.alwaysdata.net/github" />
                 <span class="help-inline">
                     URL to diecutter's API, without trailing slash.
                     Examples: "http://localhost:8106", "http://diecutter.io/api".
@@ -128,6 +128,12 @@
                     <input id="sphinx_version_file" name="version_file" type="text" value="../VERSION" />
                 </div>
             </div>
+            <div class="control-group">
+                <label for="sphinx_contributing_file" class="control-label">Path to CONTRIBUTING</label>
+                <div class="controls">
+                    <input id="sphinx_contributing_file" name="contributing_file" type="text" value="../CONTRIBUTING" />
+                </div>
+            </div>
         </fieldset>
         <fieldset>
             <legend>Demo</legend>
@@ -146,26 +152,6 @@
                 <div class="controls">
                     <input id="sphinx_demo_readme" name="demo_readme" type="text" value="../demo/README" />
                     <span class="help-inline">Path to demo's README file, relative to the root of project's documentation.</span>
-                </div>
-            </div>
-        </fieldset>
-        <fieldset>
-            <legend>API documentation</legend>
-            <p>
-                Do you want to include auto-generated API documentation?
-            </p>
-            <div class="control-group">
-                <label for="sphinx_with_api" class="control-label">With API documentation?</label>
-                <div class="controls">
-                    <input id="sphinx_with_api" name="with_api" type="checkbox" value="1" checked />
-                    <span class="help-inline">Options below will have no effect if you uncheck this.</span>
-                </div>
-            </div>
-            <div class="control-group">
-                <label for="sphinx_api_package" class="control-label">Package name</label>
-                <div class="controls">
-                    <input id="sphinx_api_package" name="api_package" type="text" value="" />
-                    <span class="help-inline">Python package name, i.e. the one used in ``import`` statements.</span>
                 </div>
             </div>
         </fieldset>

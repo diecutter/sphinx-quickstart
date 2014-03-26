@@ -7,11 +7,12 @@ Contents
 
 .. toctree::
    :maxdepth: 2
+   :titlesonly:
 
-   {% if with_demo %}demo{% endif %}
-   faq
+   {% if with_demo -%}
+     demo
+   {% endif -%}
    install
-   {% if with_api %}api/index{% endif %}
    about/index
    contributing.txt
 

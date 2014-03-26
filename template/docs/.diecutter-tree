@@ -1,14 +1,4 @@
 [
-  {# API -#}
-  {% if with_api -%}
-  {%- for template_name in ['api/index.txt'] %}
-  {
-    "template": "{{ template_name }}",
-    "filename": "{{ template_name }}"
-  },
-  {%- endfor %}
-  {%- endif %}
-
   {# Demo -#}
   {% if with_demo -%}
   {
@@ -26,8 +16,7 @@
   {%- endfor %}
 
   {# Regular files. -#}
-  {%- for template_name in ['faq.txt',
-                            'index.txt',
+  {%- for template_name in ['index.txt',
                             'install.txt',
                             'about/alternatives.txt',
                             'about/authors.txt',
