@@ -50,10 +50,10 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'{% endraw %}{{ project_name }}{% raw %}'
-project_slug = re.sub(r'([\w_.-]+)', u'-', project)
+project_slug = re.sub(r'([\W_.-]+)', u'-', project)
 copyright = u'{% endraw %}{{ copyright }}{% raw %}'
 author = u'{% endraw %}{{ author }}{% raw %}'
-author_slug = re.sub(r'([\w_.-]+)', u'-', author)
+author_slug = re.sub(r'([\W_.-]+)', u'-', author)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
